@@ -1,1 +1,1309 @@
-<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="css/style.css"><title>Admin</title></head><body><div class="top">ADMIN PANEL</div><nav class="nav"><a class="brand" href="index.html">MY <span>OLD</span> CAR</a></nav><main class="wrap"><div class="form" id="loginBox"><h1>Admin Login</h1><input id="pass" type="password" placeholder="Password"><p><button class="btn" onclick="adminLogin()">LOGIN</button></p><p id="error"></p></div><div id="dashboard" style="display:none"><h1>Seller Submissions</h1><div id="adminCars" class="grid"></div></div></main><script src="js/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Panel | My Old Car</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#f4f5f7;
+  color:#151515;
+}
+
+button,
+input{
+  font-family:inherit;
+}
+
+/* LOGIN */
+
+.login-page{
+  min-height:100vh;
+  background:
+  radial-gradient(circle at top right,#d7192040,transparent 30%),
+  #111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  padding:40px 30px;
+  border-radius:24px;
+  box-shadow:0 30px 80px #00000050;
+  text-align:center;
+}
+
+.login-icon{
+  width:65px;
+  height:65px;
+  border-radius:18px;
+  background:#ffd319;
+  display:grid;
+  place-items:center;
+  margin:0 auto 20px;
+  font-size:30px;
+}
+
+.login-box h1{
+  font-family:'Playfair Display',serif;
+  font-size:35px;
+}
+
+.login-box p{
+  color:#777;
+  font-size:13px;
+  margin:10px 0 25px;
+}
+
+.login-box input{
+  width:100%;
+  height:52px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:0 15px;
+  outline:none;
+  font-size:15px;
+}
+
+.login-box input:focus{
+  border-color:#d71920;
+}
+
+.login-btn{
+  width:100%;
+  border:none;
+  background:#d71920;
+  color:#fff;
+  padding:15px;
+  margin-top:12px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.login-btn:hover{
+  background:#111;
+}
+
+.login-error{
+  color:#d71920;
+  font-size:12px;
+  margin-top:12px;
+  min-height:18px;
+}
+
+
+/* ADMIN DASHBOARD */
+
+.admin-app{
+  display:none;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  width:260px;
+  background:#111;
+  color:white;
+  padding:25px 18px;
+  display:flex;
+  flex-direction:column;
+  z-index:100;
+}
+
+.admin-logo{
+  font-size:23px;
+  font-weight:900;
+  padding:10px;
+}
+
+.admin-logo span{
+  color:#ffd319;
+}
+
+.admin-label{
+  font-size:10px;
+  color:#777;
+  font-weight:900;
+  letter-spacing:1px;
+  margin:35px 10px 12px;
+}
+
+.menu-btn{
+  width:100%;
+  border:none;
+  background:transparent;
+  color:#bbb;
+  text-align:left;
+  padding:14px 12px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.menu-btn:hover,
+.menu-btn.active{
+  background:#ffffff10;
+  color:#ffd319;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+}
+
+.home-link{
+  display:block;
+  text-decoration:none;
+  background:#ffd319;
+  color:#111;
+  padding:13px;
+  border-radius:10px;
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.logout-btn{
+  width:100%;
+  border:none;
+  background:#ffffff12;
+  color:#fff;
+  padding:13px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:800;
+}
+
+
+/* MAIN */
+
+.main{
+  margin-left:260px;
+  padding:30px;
+}
+
+/* TOP */
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.top h1{
+  font-family:'Playfair Display',serif;
+  font-size:38px;
+}
+
+.top p{
+  color:#777;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.admin-user{
+  background:#fff;
+  padding:10px 16px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 5px 20px #00000008;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.stat-card{
+  background:#fff;
+  padding:22px;
+  border-radius:16px;
+  box-shadow:0 8px 30px #00000008;
+}
+
+.stat-icon{
+  font-size:24px;
+}
+
+.stat-card strong{
+  display:block;
+  font-size:28px;
+  margin-top:12px;
+}
+
+.stat-card span{
+  color:#777;
+  font-size:12px;
+}
+
+/* CONTENT CARD */
+
+.content-card{
+  background:#fff;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 8px 30px #00000008;
+}
+
+.content-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.content-head h2{
+  font-size:21px;
+}
+
+.refresh-btn{
+  border:none;
+  background:#111;
+  color:white;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:#d71920;
+  color:#fff;
+  border-color:#d71920;
+}
+
+/* POSTS */
+
+.posts{
+  display:grid;
+  gap:15px;
+}
+
+.post{
+  border:1px solid #eee;
+  border-radius:15px;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:180px 1fr;
+  transition:.3s;
+}
+
+.post:hover{
+  box-shadow:0 10px 30px #00000010;
+}
+
+.car-photo{
+  width:100%;
+  height:100%;
+  min-height:210px;
+  object-fit:cover;
+  background:#eee;
+}
+
+.post-content{
+  padding:20px;
+}
+
+.post-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.car-name{
+  font-size:20px;
+  font-weight:900;
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.pending{
+  background:#fff4cf;
+  color:#9b6900;
+}
+
+.approved{
+  background:#dff8e7;
+  color:#137333;
+}
+
+.rejected{
+  background:#ffe0e0;
+  color:#b00020;
+}
+
+.urgent{
+  background:#fff0f0;
+  color:#d71920;
+  margin-left:6px;
+}
+
+.car-price{
+  font-size:23px;
+  color:#d71920;
+  font-weight:900;
+  margin:10px 0;
+}
+
+.details{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:14px 0;
+}
+
+.detail{
+  background:#f7f7f7;
+  padding:9px;
+  border-radius:8px;
+  font-size:11px;
+  color:#555;
+}
+
+.seller-info{
+  border-top:1px solid #eee;
+  padding-top:14px;
+  margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 20px;
+  font-size:12px;
+}
+
+.seller-info strong{
+  color:#111;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:18px;
+  flex-wrap:wrap;
+}
+
+.approve-btn,
+.reject-btn,
+.delete-btn,
+.wa-btn{
+  border:none;
+  padding:10px 13px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.approve-btn{
+  background:#25d366;
+  color:white;
+}
+
+.reject-btn{
+  background:#f0ad00;
+  color:white;
+}
+
+.delete-btn{
+  background:#ffe1e1;
+  color:#d71920;
+}
+
+.wa-btn{
+  background:#111;
+  color:white;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:70px 20px;
+  color:#777;
+}
+
+.empty div{
+  font-size:50px;
+  margin-bottom:10px;
+}
+
+/* MOBILE */
+
+.mobile-top{
+  display:none;
+}
+
+@media(max-width:1050px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:750px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    padding:18px;
+  }
+
+  .mobile-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#111;
+    color:#fff;
+    padding:15px;
+    margin:-18px -18px 25px;
+  }
+
+  .mobile-top strong span{
+    color:#ffd319;
+  }
+
+  .top{
+    display:block;
+  }
+
+  .top h1{
+    font-size:32px;
+  }
+
+  .admin-user{
+    margin-top:15px;
+    display:inline-block;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat-card{
+    padding:17px;
+  }
+
+  .post{
+    grid-template-columns:1fr;
+  }
+
+  .car-photo{
+    height:220px;
+  }
+
+  .details{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .content-card{
+    padding:15px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- LOGIN PAGE -->
+
+<div class="login-page" id="loginPage">
+
+<div class="login-box">
+
+<div class="login-icon">🔐</div>
+
+<h1>Admin Panel</h1>
+
+<p>
+My Old Car Management Dashboard
+</p>
+
+<input
+type="password"
+id="adminPassword"
+placeholder="Enter admin password"
+>
+
+<button class="login-btn" onclick="login()">
+LOGIN TO DASHBOARD
+</button>
+
+<div class="login-error" id="loginError"></div>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN APP -->
+
+<div class="admin-app" id="adminApp">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="admin-logo">
+MY <span>OLD</span> CAR
+</div>
+
+<div class="admin-label">
+MANAGEMENT
+</div>
+
+<button class="menu-btn active">
+📊 Dashboard
+</button>
+
+<button class="menu-btn">
+🚗 Car Listings
+</button>
+
+<button class="menu-btn">
+⏳ Pending Approval
+</button>
+
+<button class="menu-btn">
+👤 Sellers
+</button>
+
+<div class="sidebar-bottom">
+
+<a href="index.html" class="home-link">
+🌐 VIEW WEBSITE
+</a>
+
+<button class="logout-btn" onclick="logout()">
+↩ LOGOUT
+</button>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="mobile-top">
+
+<strong>
+MY <span>OLD</span> CAR
+</strong>
+
+<button
+onclick="logout()"
+style="border:0;background:#d71920;color:#fff;padding:8px 12px;border-radius:6px;font-weight:800;"
+>
+LOGOUT
+</button>
+
+</div>
+
+
+<!-- TOP -->
+
+<div class="top">
+
+<div>
+
+<h1>Dashboard</h1>
+
+<p>
+Manage seller submissions and car listings.
+</p>
+
+</div>
+
+<div class="admin-user">
+👤 ADMINISTRATOR
+</div>
+
+</div>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+<div class="stat-card">
+
+<div class="stat-icon">🚗</div>
+
+<strong id="totalCount">0</strong>
+
+<span>Total Listings</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">⏳</div>
+
+<strong id="pendingCount">0</strong>
+
+<span>Pending Review</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">✅</div>
+
+<strong id="approvedCount">0</strong>
+
+<span>Approved</span>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-icon">🔥</div>
+
+<strong id="urgentCount">0</strong>
+
+<span>Urgent Sale</span>
+
+</div>
+
+</section>
+
+
+<!-- CONTENT -->
+
+<section class="content-card">
+
+<div class="content-head">
+
+<h2>Seller Car Submissions</h2>
+
+<button
+class="refresh-btn"
+onclick="loadCars()"
+>
+↻ REFRESH
+</button>
+
+</div>
+
+
+<div class="filters">
+
+<button
+class="filter-btn active"
+onclick="filterCars('all',this)"
+>
+ALL
+</button>
+
+<button
+class="filter-btn"
+onclick="filterCars('pending',this)"
+>
+PENDING
+</button>
+
+<button
+class="filter-btn"
+onclick="filterCars('approved',this)"
+>
+APPROVED
+</button>
+
+<button
+class="filter-btn"
+onclick="filterCars('rejected',this)"
+>
+REJECTED
+</button>
+
+</div>
+
+
+<div class="posts" id="posts"></div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   ADMIN PASSWORD
+   Change this password before deployment
+========================================= */
+
+const ADMIN_PASSWORD = "77882";
+
+
+/* CURRENT FILTER */
+
+let currentFilter = "all";
+
+
+/* LOGIN */
+
+function login(){
+
+const password =
+document.getElementById("adminPassword")
+.value;
+
+
+if(password === ADMIN_PASSWORD){
+
+sessionStorage.setItem(
+"myOldCarAdmin",
+"loggedIn"
+);
+
+showDashboard();
+
+}else{
+
+document
+.getElementById("loginError")
+.textContent =
+"Incorrect admin password.";
+
+}
+
+}
+
+
+/* ENTER KEY LOGIN */
+
+document
+.getElementById("adminPassword")
+.addEventListener("keydown",function(e){
+
+if(e.key === "Enter"){
+login();
+}
+
+});
+
+
+/* SHOW DASHBOARD */
+
+function showDashboard(){
+
+document
+.getElementById("loginPage")
+.style.display = "none";
+
+document
+.getElementById("adminApp")
+.style.display = "block";
+
+loadCars();
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+sessionStorage.removeItem(
+"myOldCarAdmin"
+);
+
+document
+.getElementById("adminApp")
+.style.display = "none";
+
+document
+.getElementById("loginPage")
+.style.display = "flex";
+
+document
+.getElementById("adminPassword")
+.value = "";
+
+}
+
+
+/* GET SELLER CARS */
+
+function getCars(){
+
+return JSON.parse(
+localStorage.getItem("sellerCars")
+) || [];
+
+}
+
+
+/* LOAD CARS */
+
+function loadCars(){
+
+const cars = getCars();
+
+updateStats(cars);
+
+displayCars(cars);
+
+}
+
+
+/* STATS */
+
+function updateStats(cars){
+
+document
+.getElementById("totalCount")
+.textContent =
+cars.length;
+
+
+document
+.getElementById("pendingCount")
+.textContent =
+cars.filter(car =>
+car.status === "pending"
+).length;
+
+
+document
+.getElementById("approvedCount")
+.textContent =
+cars.filter(car =>
+car.status === "approved"
+).length;
+
+
+document
+.getElementById("urgentCount")
+.textContent =
+cars.filter(car =>
+car.urgent === true
+).length;
+
+}
+
+
+/* FILTER */
+
+function filterCars(status,button){
+
+currentFilter = status;
+
+document
+.querySelectorAll(".filter-btn")
+.forEach(btn =>
+btn.classList.remove("active")
+);
+
+button.classList.add("active");
+
+displayCars(getCars());
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(text){
+
+const div =
+document.createElement("div");
+
+div.textContent =
+text || "";
+
+return div.innerHTML;
+
+}
+
+
+/* DISPLAY CARS */
+
+function displayCars(cars){
+
+const container =
+document.getElementById("posts");
+
+
+const filteredCars =
+currentFilter === "all"
+
+? cars
+
+: cars.filter(car =>
+car.status === currentFilter
+);
+
+
+if(filteredCars.length === 0){
+
+container.innerHTML = `
+
+<div class="empty">
+
+<div>🚗</div>
+
+<h3>No car listings found</h3>
+
+<p>
+Seller submissions will appear here.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+filteredCars
+.map(car => {
+
+const status =
+car.status || "pending";
+
+
+const price =
+Number(car.price || 0)
+.toLocaleString("en-IN");
+
+
+return `
+
+<article class="post">
+
+<img
+class="car-photo"
+src="${escapeHTML(car.image)}"
+alt="Car Image"
+onerror="this.src='https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=800&q=80'"
+>
+
+<div class="post-content">
+
+<div class="post-top">
+
+<div>
+
+<h3 class="car-name">
+${escapeHTML(car.title)}
+${car.urgent
+? '<span class="badge urgent">🔥 URGENT</span>'
+: ''
+}
+</h3>
+
+<div class="car-price">
+₹${price}
+</div>
+
+</div>
+
+<span class="badge ${status}">
+${status.toUpperCase()}
+</span>
+
+</div>
+
+
+<div class="details">
+
+<div class="detail">
+📅 Model: <strong>${escapeHTML(car.model)}</strong>
+</div>
+
+<div class="detail">
+🛣️ ${escapeHTML(car.kilometers)} KM
+</div>
+
+<div class="detail">
+🚗 ${escapeHTML(car.carNumber)}
+</div>
+
+<div class="detail">
+📍 ${escapeHTML(car.location)}
+</div>
+
+<div class="detail">
+🕒 ${escapeHTML(car.createdAt || "Recently")}
+</div>
+
+</div>
+
+
+<div class="seller-info">
+
+<span>
+👤 Seller:
+<strong>${escapeHTML(car.sellerName)}</strong>
+</span>
+
+<span>
+📱
+<strong>${escapeHTML(car.mobile)}</strong>
+</span>
+
+<span>
+📧
+<strong>${escapeHTML(car.email)}</strong>
+</span>
+
+</div>
+
+
+<div class="actions">
+
+${
+status !== "approved"
+
+? `
+
+<button
+class="approve-btn"
+onclick="changeStatus(${car.id},'approved')"
+>
+✓ APPROVE
+</button>
+
+`
+
+: ""
+}
+
+
+${
+status !== "rejected"
+
+? `
+
+<button
+class="reject-btn"
+onclick="changeStatus(${car.id},'rejected')"
+>
+✕ REJECT
+</button>
+
+`
+
+: ""
+}
+
+
+<button
+class="wa-btn"
+onclick="contactSeller('${escapeHTML(car.mobile)}','${escapeHTML(car.title)}')"
+>
+💬 CONTACT SELLER
+</button>
+
+
+<button
+class="delete-btn"
+onclick="deleteCar(${car.id})"
+>
+🗑 DELETE
+</button>
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+})
+.join("");
+
+}
+
+
+/* CHANGE STATUS */
+
+function changeStatus(id,newStatus){
+
+let cars = getCars();
+
+
+const car =
+cars.find(car =>
+car.id === id
+);
+
+
+if(!car) return;
+
+
+car.status = newStatus;
+
+
+localStorage.setItem(
+"sellerCars",
+JSON.stringify(cars)
+);
+
+
+loadCars();
+
+}
+
+
+/* DELETE CAR */
+
+function deleteCar(id){
+
+const confirmDelete =
+confirm(
+"Are you sure you want to delete this car listing?"
+);
+
+
+if(!confirmDelete) return;
+
+
+let cars = getCars();
+
+
+cars =
+cars.filter(car =>
+car.id !== id
+);
+
+
+localStorage.setItem(
+"sellerCars",
+JSON.stringify(cars)
+);
+
+
+loadCars();
+
+}
+
+
+/* WHATSAPP SELLER */
+
+function contactSeller(mobile,title){
+
+const cleanNumber =
+String(mobile)
+.replace(/\D/g,"");
+
+
+const number =
+cleanNumber.length === 10
+? "91" + cleanNumber
+: cleanNumber;
+
+
+const message =
+`Hello,
+
+I am contacting you from *My Old Car Admin Panel* regarding your listing:
+
+🚗 *${title}*
+
+Please contact us regarding your car listing.
+
+Thank you.`;
+
+window.open(
+"https://wa.me/" +
+number +
+"?text=" +
+encodeURIComponent(message),
+"_blank"
+);
+
+}
+
+
+/* CHECK LOGIN */
+
+if(
+sessionStorage.getItem("myOldCarAdmin")
+=== "loggedIn"
+){
+
+showDashboard();
+
+}
+
+</script>
+
+</body>
+</html>
