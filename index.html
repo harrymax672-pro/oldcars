@@ -1,1 +1,1256 @@
-<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="css/style.css"><title>My Old Car</title></head><body><div class="top">🚗 USED CAR MARKETPLACE • WADALA, MUMBAI</div><nav class="nav"><a class="brand" href="index.html">MY <span>OLD</span> CAR</a><a class="btn" href="seller.html">SELL MY CAR</a></nav><section class="hero"><h1>Find Your Next <span>WagonR.</span></h1><p>Professional used car marketplace.</p><a class="btn" href="seller.html">SELL YOUR CAR</a></section><main class="wrap"><h2>Featured Cars</h2><div class="grid" id="carsGrid"></div></main><div class="dev">Develop By IFTEKHAR | Wadala - Mumbai</div><script src="js/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Old Car | Used Cars Wadala Mumbai</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#f5f4ef;
+  color:#111;
+}
+
+/* TOP BAR */
+
+.topbar{
+  background:#ffd319;
+  color:#111;
+  text-align:center;
+  padding:8px;
+  font-size:12px;
+  font-weight:900;
+}
+
+/* NAVBAR */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  height:76px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #eee;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 6%;
+}
+
+.logo{
+  color:#111;
+  text-decoration:none;
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:#d71920;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#222;
+  font-size:12px;
+  font-weight:800;
+}
+
+nav a:hover{
+  color:#d71920;
+}
+
+.sell-nav{
+  color:#d71920!important;
+}
+
+.nav-btn{
+  background:#111;
+  color:white!important;
+  padding:13px 18px;
+  border-radius:9px;
+}
+
+/* HERO */
+
+.hero{
+  min-height:650px;
+  margin:18px;
+  border-radius:30px;
+
+  display:flex;
+  align-items:center;
+
+  padding:70px 8%;
+
+  color:white;
+
+  background:
+    linear-gradient(90deg,
+    rgba(0,0,0,.92) 0%,
+    rgba(0,0,0,.72) 45%,
+    rgba(0,0,0,.15) 100%),
+    url("https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1800&q=90");
+
+  background-size:cover;
+  background-position:center;
+}
+
+.hero-content{
+  max-width:650px;
+  animation:heroIn 1s ease;
+}
+
+@keyframes heroIn{
+  from{
+    opacity:0;
+    transform:translateX(-50px);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+.hero-tag{
+  display:inline-block;
+  background:#ffd319;
+  color:#111;
+  padding:9px 16px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(55px,8vw,100px);
+  line-height:.9;
+  margin:25px 0;
+}
+
+.hero h1 span{
+  color:#ffd319;
+}
+
+.hero p{
+  max-width:520px;
+  color:#ddd;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.btn-yellow{
+  display:inline-block;
+  background:#ffd319;
+  color:#111;
+  text-decoration:none;
+  padding:15px 23px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:900;
+  transition:.3s;
+}
+
+.btn-yellow:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px #ffd31955;
+}
+
+.btn-outline{
+  display:inline-block;
+  border:1px solid white;
+  color:white;
+  text-decoration:none;
+  padding:14px 22px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:900;
+}
+
+/* STATS */
+
+.stats{
+  max-width:1150px;
+  margin:-35px auto 75px;
+
+  position:relative;
+  z-index:5;
+
+  background:white;
+
+  border-radius:18px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  box-shadow:0 20px 50px #00000012;
+}
+
+.stat{
+  text-align:center;
+  padding:27px;
+  border-right:1px solid #eee;
+}
+
+.stat:last-child{
+  border:none;
+}
+
+.stat strong{
+  display:block;
+  font-size:27px;
+}
+
+.stat small{
+  color:#777;
+  font-weight:600;
+}
+
+/* SECTION */
+
+.section{
+  max-width:1350px;
+  margin:auto;
+  padding:20px 30px 80px;
+}
+
+.section-top{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.section-label{
+  color:#d71920;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:50px;
+  margin-top:5px;
+}
+
+/* SEARCH */
+
+.search{
+  width:270px;
+  padding:14px 16px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+}
+
+.search:focus{
+  border-color:#d71920;
+}
+
+/* CAR GRID */
+
+.car-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(4,1fr);
+
+  gap:20px;
+}
+
+/* CAR CARD */
+
+.car-card{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid #eee;
+
+  transition:.3s;
+
+  animation:cardIn .7s ease both;
+}
+
+.car-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 50px #00000015;
+}
+
+.car-image{
+  height:220px;
+  width:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.car-info{
+  padding:17px;
+}
+
+.used{
+  color:#d71920;
+  font-size:10px;
+  font-weight:900;
+}
+
+.car-title{
+  font-size:18px;
+  font-weight:900;
+  margin:7px 0;
+}
+
+.car-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  color:#777;
+  font-size:11px;
+  margin:12px 0;
+}
+
+.price{
+  font-size:23px;
+  font-weight:900;
+}
+
+.location{
+  font-size:12px;
+  color:#777;
+  margin:8px 0;
+}
+
+.inquiry-btn{
+  width:100%;
+  border:none;
+  background:#25d366;
+  color:white;
+  padding:13px;
+  border-radius:9px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.inquiry-btn:hover{
+  background:#128c7e;
+}
+
+/* WHY */
+
+.why{
+  max-width:1350px;
+  margin:20px auto 80px;
+
+  background:#111;
+  color:white;
+
+  border-radius:28px;
+
+  padding:65px;
+
+  display:grid;
+  grid-template-columns:1fr 2fr;
+
+  gap:50px;
+}
+
+.why-title{
+  font-family:'Playfair Display',serif;
+  font-size:55px;
+  margin-top:10px;
+}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.why-card{
+  background:#ffffff0d;
+  border:1px solid #ffffff14;
+  border-radius:15px;
+  padding:25px;
+}
+
+.why-card .icon{
+  font-size:28px;
+}
+
+.why-card h3{
+  margin:15px 0 8px;
+}
+
+.why-card p{
+  color:#aaa;
+  font-size:12px;
+  line-height:1.7;
+}
+
+/* SELL CTA */
+
+.sell-section{
+  margin:0 18px 70px;
+
+  padding:65px 8%;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(100deg,#d71920,#9d1015);
+
+  color:white;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+}
+
+.sell-section h2{
+  font-family:'Playfair Display',serif;
+  font-size:50px;
+}
+
+.sell-section p{
+  color:#ffdede;
+  margin-top:8px;
+}
+
+.sell-button{
+  background:#ffd319;
+  color:#111;
+  text-decoration:none;
+  padding:17px 25px;
+  border-radius:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+/* FOOTER */
+
+footer{
+  background:#101010;
+  color:white;
+  text-align:center;
+  padding:40px 20px 0;
+}
+
+.footer-logo{
+  font-size:25px;
+  font-weight:900;
+}
+
+.footer-logo span{
+  color:#d71920;
+}
+
+footer p{
+  color:#aaa;
+  margin:10px 0;
+  font-size:13px;
+}
+
+.developer{
+  margin-top:25px;
+  background:#ffd319;
+  color:#d71920;
+  padding:11px;
+  font-weight:900;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:#000b;
+
+  backdrop-filter:blur(7px);
+
+  z-index:9999;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:470px;
+
+  border-radius:22px;
+
+  padding:28px;
+
+  position:relative;
+
+  animation:popup .35s ease;
+}
+
+@keyframes popup{
+  from{
+    opacity:0;
+    transform:translateY(30px) scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:15px;
+
+  width:38px;
+  height:38px;
+
+  border:0;
+  border-radius:50%;
+
+  font-size:23px;
+
+  cursor:pointer;
+}
+
+.modal-box h2{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  margin:8px 0 20px;
+}
+
+.modal-box input,
+.modal-box select{
+  width:100%;
+  height:48px;
+
+  border:1px solid #ddd;
+
+  border-radius:9px;
+
+  padding:0 13px;
+
+  margin-bottom:10px;
+
+  outline:none;
+}
+
+.modal-box input:focus{
+  border-color:#d71920;
+}
+
+.modal-wa{
+  width:100%;
+
+  border:0;
+
+  background:#25d366;
+
+  color:white;
+
+  padding:15px;
+
+  border-radius:9px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  .car-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .why{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  header{
+    padding:0 16px;
+  }
+
+  nav{
+    display:none;
+  }
+
+  header>.nav-btn{
+    display:none;
+  }
+
+  .hero{
+    margin:10px;
+    min-height:560px;
+    padding:45px 25px;
+  }
+
+  .hero h1{
+    font-size:58px;
+  }
+
+  .stats{
+    margin:0 12px 50px;
+  }
+
+  .stat{
+    padding:18px 5px;
+  }
+
+  .stat strong{
+    font-size:21px;
+  }
+
+  .stat small{
+    font-size:9px;
+  }
+
+  .section{
+    padding:15px;
+  }
+
+  .section-top{
+    display:block;
+  }
+
+  .section-title{
+    font-size:40px;
+  }
+
+  .search{
+    width:100%;
+    margin-top:15px;
+  }
+
+  .car-grid{
+    grid-template-columns:1fr;
+  }
+
+  .why{
+    margin:20px 12px 50px;
+    padding:35px 22px;
+  }
+
+  .why-title{
+    font-size:43px;
+  }
+
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sell-section{
+    margin:0 12px 50px;
+    padding:40px 25px;
+    display:block;
+  }
+
+  .sell-section h2{
+    font-size:40px;
+  }
+
+  .sell-button{
+    display:inline-block;
+    margin-top:25px;
+  }
+
+}
+
+/* ANIMATION */
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+  🚗 USED WAGONR CARS • WADALA, MUMBAI • WHATSAPP INQUIRY
+</div>
+
+
+<!-- NAVBAR -->
+
+<header>
+
+<a href="#" class="logo">
+  MY <span>OLD</span> CAR
+</a>
+
+<nav>
+
+<a href="#home">Home</a>
+
+<a href="#cars">Cars</a>
+
+<a href="#why">Why Us</a>
+
+<a href="#sell" class="sell-nav">
+  🚗 Sell My Car
+</a>
+
+<a href="#contact">
+  Contact
+</a>
+
+</nav>
+
+<a href="#sell" class="nav-btn">
+  BECOME A SELLER
+</a>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<span class="hero-tag">
+  ✦ WADALA • MUMBAI
+</span>
+
+<h1>
+  Find Your<br>
+  <span>Next Car.</span>
+</h1>
+
+<p>
+  Discover quality used WagonR cars in Mumbai.
+  Compare price, model, kilometres and location
+  and contact the seller directly.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#cars" class="btn-yellow">
+  VIEW CARS →
+</a>
+
+<a href="#sell" class="btn-outline">
+  SELL MY CAR
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<strong>16+</strong>
+<small>Cars Available</small>
+</div>
+
+<div class="stat">
+<strong>MH</strong>
+<small>Mumbai Registration</small>
+</div>
+
+<div class="stat">
+<strong>24/7</strong>
+<small>WhatsApp Inquiry</small>
+</div>
+
+</div>
+
+
+<!-- CARS -->
+
+<section class="section" id="cars">
+
+<div class="section-top">
+
+<div>
+<span class="section-label">
+  AVAILABLE CARS
+</span>
+
+<h2 class="section-title">
+  Explore Cars
+</h2>
+</div>
+
+<input
+class="search"
+id="search"
+placeholder="Search car, year, location..."
+>
+
+</div>
+
+
+<div class="car-grid" id="carGrid"></div>
+
+</section>
+
+
+<!-- WHY -->
+
+<section class="why" id="why">
+
+<div>
+
+<span class="section-label">
+  WHY MY OLD CAR
+</span>
+
+<h2 class="why-title">
+  Simple.<br>
+  Clear.<br>
+  Direct.
+</h2>
+
+</div>
+
+
+<div class="why-grid">
+
+<div class="why-card">
+
+<div class="icon">🚗</div>
+
+<h3>Used Cars</h3>
+
+<p>
+Browse old and used WagonR cars with
+important vehicle details.
+</p>
+
+</div>
+
+
+<div class="why-card">
+
+<div class="icon">💰</div>
+
+<h3>Clear Pricing</h3>
+
+<p>
+See expected sale price, model and
+kilometres before contacting seller.
+</p>
+
+</div>
+
+
+<div class="why-card">
+
+<div class="icon">💬</div>
+
+<h3>WhatsApp</h3>
+
+<p>
+Send a professional inquiry directly
+through WhatsApp.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SELL CTA -->
+
+<section class="sell-section" id="sell">
+
+<div>
+
+<h2>
+  Have a WagonR?
+</h2>
+
+<p>
+  List your used car and reach interested buyers.
+</p>
+
+</div>
+
+<a href="seller.html" class="sell-button">
+  🚗 SELL MY CAR →
+</a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer id="contact">
+
+<div class="footer-logo">
+  MY <span>OLD</span> CAR
+</div>
+
+<p>
+  🚗 Used Car Marketplace
+</p>
+
+<p>
+  📍 Wadala, Mumbai
+</p>
+
+<p>
+  💬 WhatsApp: +91 8128177882
+</p>
+
+<div class="developer">
+  Develop By MR. Iftekhar | Mumbai
+</div>
+
+</footer>
+
+
+<!-- INQUIRY POPUP -->
+
+<div class="modal" id="modal">
+
+<div class="modal-box">
+
+<button class="close" onclick="closeModal()">
+  ×
+</button>
+
+<span class="section-label">
+  WHATSAPP INQUIRY
+</span>
+
+<h2 id="modalTitle">
+  Car Inquiry
+</h2>
+
+<input
+id="customerName"
+placeholder="Your Name"
+>
+
+<input
+id="customerMobile"
+placeholder="10-digit Mobile Number"
+maxlength="10"
+>
+
+<select id="interest">
+
+<option value="Interested">
+  I'm Interested
+</option>
+
+<option value="Buy">
+  I Want To Buy
+</option>
+
+</select>
+
+<button
+class="modal-wa"
+onclick="sendWhatsApp()"
+>
+💬 SEND INQUIRY ON WHATSAPP
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* CAR DATA */
+
+const cars = [
+
+["WagonR VXI 2019","2019","54,000","₹3,25,000","MH 01 AB 1021","Wadala, Mumbai"],
+["WagonR LXI 2020","2020","48,000","₹3,65,000","MH 01 CD 2480","Dadar, Mumbai"],
+["WagonR VXI 2018","2018","61,000","₹2,95,000","MH 01 EF 5612","Chembur, Mumbai"],
+["WagonR CNG 2021","2021","39,000","₹4,25,000","MH 01 GH 7834","Sion, Mumbai"],
+["WagonR LXI 2017","2017","72,000","₹2,65,000","MH 01 JK 9201","Wadala, Mumbai"],
+["WagonR VXI 2020","2020","51,000","₹3,75,000","MH 01 LM 4456","Matunga, Mumbai"],
+["WagonR CNG 2019","2019","59,000","₹3,35,000","MH 01 NP 6712","Kurla, Mumbai"],
+["WagonR LXI 2018","2018","68,000","₹2,85,000","MH 01 QR 3389","Byculla, Mumbai"],
+["WagonR VXI 2022","2022","28,000","₹4,95,000","MH 01 ST 1045","Mumbai"],
+["WagonR CNG 2020","2020","46,000","₹4,05,000","MH 01 UV 7263","Wadala, Mumbai"],
+["WagonR LXI 2019","2019","55,000","₹3,15,000","MH 01 WX 5890","Parel, Mumbai"],
+["WagonR VXI 2017","2017","76,000","₹2,50,000","MH 01 YZ 3471","Antop Hill, Mumbai"],
+["WagonR CNG 2021","2021","35,000","₹4,45,000","MH 01 AA 8912","Sion, Mumbai"],
+["WagonR LXI 2018","2018","63,000","₹2,90,000","MH 01 BB 2468","Wadala, Mumbai"],
+["WagonR VXI 2020","2020","43,000","₹3,85,000","MH 01 CC 7531","Mumbai"],
+["WagonR CNG 2019","2019","57,000","₹3,40,000","MH 01 DD 6395","Chembur, Mumbai"]
+
+];
+
+
+/* CAR IMAGE */
+
+const carImage =
+"https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=900&q=85";
+
+
+/* DISPLAY CARS */
+
+function displayCars(list){
+
+const grid =
+document.getElementById("carGrid");
+
+grid.innerHTML = "";
+
+list.forEach((car,index)=>{
+
+grid.innerHTML += `
+
+<article class="car-card"
+style="animation-delay:${index*.04}s">
+
+<img
+class="car-image"
+src="${carImage}"
+alt="${car[0]}"
+>
+
+<div class="car-info">
+
+<span class="used">
+USED WAGONR
+</span>
+
+<h3 class="car-title">
+${car[0]}
+</h3>
+
+<div class="car-meta">
+
+<span>📅 ${car[1]}</span>
+
+<span>🛣️ ${car[2]} KM</span>
+
+<span>🚗 ${car[4]}</span>
+
+<span>👤 Seller</span>
+
+</div>
+
+<div class="price">
+${car[3]}
+</div>
+
+<div class="location">
+📍 ${car[5]}
+</div>
+
+<button
+class="inquiry-btn"
+onclick='openModal(${JSON.stringify(car)})'
+>
+💬 WHATSAPP INQUIRY
+</button>
+
+</div>
+
+</article>
+
+`;
+
+});
+
+}
+
+
+/* SEARCH */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+const query =
+this.value.toLowerCase();
+
+const filtered =
+cars.filter(car =>
+car.join(" ")
+.toLowerCase()
+.includes(query)
+);
+
+displayCars(filtered);
+
+});
+
+
+/* POPUP */
+
+let selectedCar = null;
+
+function openModal(car){
+
+selectedCar = car;
+
+document
+.getElementById("modalTitle")
+.textContent = car[0];
+
+document
+.getElementById("modal")
+.classList.add("active");
+
+}
+
+
+function closeModal(){
+
+document
+.getElementById("modal")
+.classList.remove("active");
+
+}
+
+
+/* WHATSAPP */
+
+function sendWhatsApp(){
+
+const name =
+document
+.getElementById("customerName")
+.value.trim();
+
+const mobile =
+document
+.getElementById("customerMobile")
+.value.trim();
+
+const interest =
+document
+.getElementById("interest")
+.value;
+
+if(!name){
+
+alert("Please enter your name.");
+
+return;
+
+}
+
+if(!/^[0-9]{10}$/.test(mobile)){
+
+alert("Please enter a valid 10-digit mobile number.");
+
+return;
+
+}
+
+
+const message =
+
+`🚗 *MY OLD CAR - INQUIRY*
+
+━━━━━━━━━━━━━━
+
+*Car:* ${selectedCar[0]}
+
+*Model:* ${selectedCar[1]}
+
+*KM:* ${selectedCar[2]}
+
+*Price:* ${selectedCar[3]}
+
+*Car Number:* ${selectedCar[4]}
+
+*Location:* ${selectedCar[5]}
+
+━━━━━━━━━━━━━━
+
+*Customer Name:* ${name}
+
+*Mobile:* ${mobile}
+
+*Interest:* ${interest}
+
+Please contact me regarding this car.`;
+
+const url =
+"https://wa.me/918128177882?text="
++encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+}
+
+
+/* START */
+
+displayCars(cars);
+
+</script>
+
+</body>
+</html>
